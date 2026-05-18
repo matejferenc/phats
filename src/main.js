@@ -14,11 +14,11 @@ document.getElementById('hero-bg').style.backgroundImage =
   `url('${base}photos_webp/portrait/photo_01.webp')`
 
 document.getElementById('cat-portrait').style.backgroundImage =
-  `url('${base}photos_webp/portrait/photo_08.webp')`
+  `url('${base}photos_webp/portrait/photo_01.webp')`
 document.getElementById('cat-events').style.backgroundImage =
-  `url('${base}photos_webp/events/photo_05.webp')`
+  `url('${base}photos_webp/events/photo_01.webp')`
 document.getElementById('cat-products').style.backgroundImage =
-  `url('${base}photos_webp/products/photo_03.webp')`
+  `url('${base}photos_webp/products/photo_01.webp')`
 
 initI18n()
 initHeader()
