@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo Picker — Tiso Photos</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    h1 { font-size: 1.4rem; font-weight: 600; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: 2px solid #444;
+      background: none;
+      color: #aaa;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab:hover { border-color: #888; color: #fff; }
+    .tab.active { border-color: #fff; color: #fff; background: #333; }
+
+    .stats {
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .stat { display: flex; align-items: center; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot.keep    { background: #4ade80; }
+    .dot.discard { background: #f87171; }
+    .dot.none    { background: #555; }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: #888;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border-color 0.15s, transform 0.1s;
+      background: #2a2a2a;
+    }
+    .card:hover { transform: scale(1.02); }
+    .card.keep    { border-color: #4ade80; }
+    .card.discard { border-color: #f87171; }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.15s;
+    }
+    .card.discard img { opacity: 0.3; }
+
+    .card-label {
+      position: absolute;
+      top: 6px; left: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    .card.keep    .card-label { background: #4ade80; color: #000; opacity: 1; }
+    .card.discard .card-label { background: #f87171; color: #000; opacity: 1; }
+
+    .card-num {
+      position: absolute;
+      bottom: 6px; right: 8px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    button.btn {
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: opacity 0.1s;
+    }
+    button.btn:hover { opacity: 0.85; }
+    .btn-export { background: #4ade80; color: #000; }
+    .btn-copy   { background: #60a5fa; color: #000; }
+    .btn-reset  { background: #444; color: #fff; }
+
+    .output {
+      margin-top: 28px;
+      background: #2a2a2a;
+      border-radius: 8px;
+      padding: 16px;
+      display: none;
+    }
+    .output h2 { font-size: 1rem; margin-bottom: 10px; }
+    .output pre {
+      font-size: 0.78rem;
+      color: #aaa;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .saved-badge {
+      font-size: 0.75rem;
+      color: #4ade80;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .saved-badge.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Photo Picker — Tiso Photos</h1>
+  <span class="saved-badge" id="saved-badge">✓ Uložené</span>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('portrait')">Portrait (121)</button>
+  <button class="tab"        onclick="switchTab('events')">Events (99)</button>
+  <button class="tab"        onclick="switchTab('products')">Products (59)</button>
+</div>
+
+<div class="stats" id="stats"></div>
+<br>
+
+<div class="legend">
+  <span><span style="color:#4ade80">●</span> 1× klik = <strong>PONECHAŤ</strong></span>
+  <span><span style="color:#f87171">●</span> 2× klik = <strong>VYRADIŤ</strong></span>
+  <span><span style="color:#555">●</span> 3× klik = zrušiť</span>
+</div>
+
+<div class="actions">
+  <button class="btn btn-export" onclick="showExport()">Zobraziť výber</button>
+  <button class="btn btn-copy"   onclick="copyToClipboard()">Kopírovať JSON</button>
+  <button class="btn btn-reset"  onclick="resetCurrent()">Reset aktuálnej kategórie</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="output" id="output">
+  <h2>Výber (skopíruj a pošli developerovi):</h2>
+  <pre id="output-text"></pre>
+</div>
+
+<script>
+  const COUNTS = { portrait: 121, events: 99, products: 59 }
+  const STATES = [null, 'keep', 'discard']
+  const STORAGE_KEY = 'tiso-photo-picker-v1'
+
+  let currentTab = 'portrait'
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {} } catch { return {} }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    const badge = document.getElementById('saved-badge')
+    badge.classList.add('show')
+    setTimeout(() => badge.classList.remove('show'), 1500)
+  }
+
+  function getPhotos(cat) {
+    return Array.from({ length: COUNTS[cat] }, (_, i) =>
+      `photo_${String(i + 1).padStart(2, '0')}.webp`
+    )
+  }
+
+  function switchTab(cat) {
+    currentTab = cat
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      t.classList.toggle('active', ['portrait','events','products'][i] === cat)
+    })
+    renderGrid()
+    updateStats()
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('grid')
+    grid.innerHTML = ''
+    const state = loadState()
+    const photos = getPhotos(currentTab)
+
+    photos.forEach(photo => {
+      const key = `${currentTab}/${photo}`
+      const s = state[key] || null
+
+      const card = document.createElement('div')
+      card.className = 'card' + (s ? ` ${s}` : '')
+      card.dataset.key = key
+
+      const img = document.createElement('img')
+      img.src = `photos_webp_small/${currentTab}/${photo}`
+      img.alt = photo
+      img.loading = 'lazy'
+
+      const label = document.createElement('div')
+      label.className = 'card-label'
+      label.textContent = s === 'keep' ? 'Ponechať' : s === 'discard' ? 'Vyradiť' : ''
+
+      const num = document.createElement('div')
+      num.className = 'card-num'
+      num.textContent = photo.replace('photo_', '').replace('.webp', '')
+
+      card.appendChild(img)
+      card.appendChild(label)
+      card.appendChild(num)
+      card.addEventListener('click', () => cycleState(key))
+      grid.appendChild(card)
+    })
+  }
+
+  function cycleState(key) {
+    const state = loadState()
+    const current = STATES.indexOf(state[key] || null)
+    const next = STATES[(current + 1) % STATES.length]
+    if (next === null) delete state[key]
+    else state[key] = next
+    saveState(state)
+
+    const card = document.querySelector(`[data-key="${key}"]`)
+    card.className = 'card' + (next ? ` ${next}` : '')
+    card.querySelector('.card-label').textContent =
+      next === 'keep' ? 'Ponechať' : next === 'discard' ? 'Vyradiť' : ''
+    updateStats()
+  }
+
+  function updateStats() {
+    const state = loadState()
+    const stats = document.getElementById('stats')
+    let html = ''
+    ;['portrait', 'events', 'products'].forEach(cat => {
+      const photos = getPhotos(cat)
+      const keep    = photos.filter(p => state[`${cat}/${p}`] === 'keep').length
+      const discard = photos.filter(p => state[`${cat}/${p}`] === 'discard').length
+      const none    = photos.length - keep - discard
+      html += `<div class="stat"><strong>${cat}</strong>:</div>`
+      html += `<div class="stat"><div class="dot keep"></div>${keep}</div>`
+      html += `<div class="stat"><div class="dot discard"></div>${discard}</div>`
+      html += `<div class="stat"><div class="dot none"></div>${none} neoznačených &nbsp;|&nbsp;</div>`
+    })
+    stats.innerHTML = html
+  }
+
+  function getExportData() {
+    const state = loadState()
+    const result = {}
+    ;['portrait', 'events', 'products'].forEach(cat => {
+      const photos = getPhotos(cat)
+      result[cat] = {
+        keep:    photos.filter(p => state[`${cat}/${p}`] === 'keep'),
+        discard: photos.filter(p => state[`${cat}/${p}`] === 'discard'),
+        untagged: photos.filter(p => !state[`${cat}/${p}`]),
+      }
+    })
+    return result
+  }
+
+  function showExport() {
+    const out = document.getElementById('output')
+    document.getElementById('output-text').textContent = JSON.stringify(getExportData(), null, 2)
+    out.style.display = 'block'
+    out.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(JSON.stringify(getExportData(), null, 2))
+      .then(() => alert('Skopírované do schránky!'))
+      .catch(() => { showExport(); alert('Skopíruj manuálne z poľa nižšie.') })
+  }
+
+  function resetCurrent() {
+    if (!confirm(`Resetovať všetky označenia v kategórii "${currentTab}"?`)) return
+    const state = loadState()
+    getPhotos(currentTab).forEach(p => delete state[`${currentTab}/${p}`])
+    saveState(state)
+    renderGrid()
+    updateStats()
+  }
+
+  renderGrid()
+  updateStats()
+</script>
+
+</body>
+</html>
