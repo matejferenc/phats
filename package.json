@@ -9,6 +9,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "vite": "^8.0.10"
+    "vite": "^8.0.10",
+    "vite-plugin-static-copy": "^4.1.0"
   }
 }

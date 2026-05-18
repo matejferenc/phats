@@ -1,8 +1,17 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
   base: '/photos/',
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        { src: 'photos_webp',       dest: '.' },
+        { src: 'photos_webp_small', dest: '.' },
+      ]
+    })
+  ],
   build: {
     rollupOptions: {
       input: {
