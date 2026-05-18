@@ -11,14 +11,14 @@ function initHeader() {
 const base = import.meta.env.BASE_URL
 
 document.getElementById('hero-bg').style.backgroundImage =
-  `url('${base}photos_webp/portrait/photo_01.webp')`
+  `url('${base}photos_webp/portrait/photo_02.webp')`
 
 document.getElementById('cat-portrait').style.backgroundImage =
-  `url('${base}photos_webp/portrait/photo_01.webp')`
+  `url('${base}photos_webp/portrait/photo_36.webp')`
 document.getElementById('cat-events').style.backgroundImage =
   `url('${base}photos_webp/events/photo_01.webp')`
 document.getElementById('cat-products').style.backgroundImage =
-  `url('${base}photos_webp/products/photo_01.webp')`
+  `url('${base}photos_webp/products/photo_51.webp')`
 
 initI18n()
 initHeader()

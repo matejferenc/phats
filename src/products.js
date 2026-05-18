@@ -5,7 +5,7 @@ import { productsPhotos } from './photos.js'
 
 const base = import.meta.env.BASE_URL
 document.getElementById('hero-bg').style.backgroundImage =
-  `url('${base}photos_webp/products/photo_01.webp')`
+  `url('${base}photos_webp/products/photo_51.webp')`
 
 const header = document.getElementById('site-header')
 window.addEventListener('scroll', () => {

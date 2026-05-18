@@ -14,7 +14,7 @@ export const translations = {
     portrait_title:    'Portréty',
     portrait_subtitle: 'Každý člověk má svůj příběh. Nechte nás ho zachytit.',
     events_title:      'Události',
-    events_subtitle:   'Od rodinných slavností po firemní akce — každý moment si zaslouží být zapamatován.',
+    events_subtitle:   'Od rodinných slavností po firemní akce.',
     products_title:    'Produkty',
     products_subtitle: 'Profesionální produktová fotografie, která prodává.',
 
