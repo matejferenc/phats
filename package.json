@@ -1,10 +1,14 @@
 {
   "name": "phats",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Professional photography portfolio — Portrait, Events, Products",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "private": true
+  "type": "module",
+  "devDependencies": {
+    "vite": "^8.0.10"
+  }
 }
