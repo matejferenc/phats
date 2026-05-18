@@ -1,84 +1,71 @@
-import { portraitPhotos, eventsPhotos, productsPhotos } from './photos.js'
+export function initLightbox(photos) {
+  const base = import.meta.env.BASE_URL
 
-const allPhotos = [...portraitPhotos, ...eventsPhotos, ...productsPhotos]
-let lightboxIndex = 0
+  let index = 0
 
-function createPhotoCard(photo, globalIndex) {
-  const li = document.createElement('li')
-  li.className = 'photo-card'
-  li.setAttribute('role', 'listitem')
+  function open(i) {
+    index = i
+    update()
+    const lb = document.getElementById('lightbox')
+    lb.hidden = false
+    document.body.style.overflow = 'hidden'
+    document.getElementById('lightbox-close').focus()
+  }
 
-  const btn = document.createElement('button')
-  btn.className = 'photo-btn'
-  btn.setAttribute('aria-label', `View photo ${globalIndex + 1}`)
+  function close() {
+    document.getElementById('lightbox').hidden = true
+    document.body.style.overflow = ''
+  }
 
-  const img = document.createElement('img')
-  img.src = `${import.meta.env.BASE_URL}photos_webp_small/${photo.small}`
-  img.alt = `Tiso Photo — ${photo.file}`
-  img.loading = 'lazy'
-  img.decoding = 'async'
+  function update() {
+    const photo = photos[index]
+    const img = document.getElementById('lightbox-img')
+    img.src = `${base}photos_webp/${photo.file}`
+    img.alt = `Tiso Photo — ${photo.file}`
+  }
 
-  btn.appendChild(img)
-  li.appendChild(btn)
-  btn.addEventListener('click', () => openLightbox(globalIndex))
-  return li
-}
+  function prev() { index = (index - 1 + photos.length) % photos.length; update() }
+  function next() { index = (index + 1) % photos.length; update() }
 
-export function renderGallery() {
-  const sections = [
-    { id: 'gallery-portrait', photos: portraitPhotos, offset: 0 },
-    { id: 'gallery-events',   photos: eventsPhotos,   offset: portraitPhotos.length },
-    { id: 'gallery-products', photos: productsPhotos, offset: portraitPhotos.length + eventsPhotos.length },
-  ]
-  sections.forEach(({ id, photos, offset }) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    photos.forEach((photo, i) => el.appendChild(createPhotoCard(photo, offset + i)))
-  })
-}
-
-function openLightbox(index) {
-  lightboxIndex = index
-  updateLightboxImage()
-  const lb = document.getElementById('lightbox')
-  lb.hidden = false
-  document.body.style.overflow = 'hidden'
-  document.getElementById('lightbox-close').focus()
-}
-
-function closeLightbox() {
-  document.getElementById('lightbox').hidden = true
-  document.body.style.overflow = ''
-}
-
-function updateLightboxImage() {
-  const photo = allPhotos[lightboxIndex]
-  const img = document.getElementById('lightbox-img')
-  img.src = `${import.meta.env.BASE_URL}photos_webp/${photo.file}`
-  img.alt = `Tiso Photo — ${photo.file}`
-}
-
-function prevPhoto() {
-  lightboxIndex = (lightboxIndex - 1 + allPhotos.length) % allPhotos.length
-  updateLightboxImage()
-}
-
-function nextPhoto() {
-  lightboxIndex = (lightboxIndex + 1) % allPhotos.length
-  updateLightboxImage()
-}
-
-export function initLightbox() {
-  document.getElementById('lightbox-close').addEventListener('click', closeLightbox)
-  document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox)
-  document.getElementById('lightbox-prev').addEventListener('click', prevPhoto)
-  document.getElementById('lightbox-next').addEventListener('click', nextPhoto)
+  document.getElementById('lightbox-close').addEventListener('click', close)
+  document.getElementById('lightbox-backdrop').addEventListener('click', close)
+  document.getElementById('lightbox-prev').addEventListener('click', prev)
+  document.getElementById('lightbox-next').addEventListener('click', next)
 
   document.addEventListener('keydown', e => {
     const lb = document.getElementById('lightbox')
     if (lb.hidden) return
-    if (e.key === 'Escape') closeLightbox()
-    if (e.key === 'ArrowLeft') prevPhoto()
-    if (e.key === 'ArrowRight') nextPhoto()
+    if (e.key === 'Escape') close()
+    if (e.key === 'ArrowLeft') prev()
+    if (e.key === 'ArrowRight') next()
+  })
+
+  return open
+}
+
+export function renderGallery(photos, containerId) {
+  const base = import.meta.env.BASE_URL
+  const el = document.getElementById(containerId)
+  const open = initLightbox(photos)
+
+  photos.forEach((photo, i) => {
+    const li = document.createElement('li')
+    li.className = 'photo-card'
+    li.setAttribute('role', 'listitem')
+
+    const btn = document.createElement('button')
+    btn.className = 'photo-btn'
+    btn.setAttribute('aria-label', `View photo ${i + 1}`)
+
+    const img = document.createElement('img')
+    img.src = `${base}photos_webp_small/${photo.small}`
+    img.alt = `Tiso Photo — ${photo.file}`
+    img.loading = i < 6 ? 'eager' : 'lazy'
+    img.decoding = 'async'
+
+    btn.appendChild(img)
+    li.appendChild(btn)
+    btn.addEventListener('click', () => open(i))
+    el.appendChild(li)
   })
 }

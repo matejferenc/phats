@@ -9,6 +9,7 @@ export const translations = {
     hero_title:    'Zachyťte\ndokonalý okamžik.',
     hero_subtitle: 'Portréty, události a produktová fotografie na nejvyšší úrovni.',
     hero_cta:      'Prohlédnout portfolio',
+    cat_view:      'Zobrazit galerii',
 
     portrait_title:    'Portréty',
     portrait_subtitle: 'Každý člověk má svůj příběh. Nechte nás ho zachytit.',
@@ -34,6 +35,7 @@ export const translations = {
     hero_title:    'Capture\nthe perfect moment.',
     hero_subtitle: 'Portrait, event and product photography at the highest level.',
     hero_cta:      'View portfolio',
+    cat_view:      'View gallery',
 
     portrait_title:    'Portrait',
     portrait_subtitle: 'Every person has a story. Let us capture it.',

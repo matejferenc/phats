@@ -3,12 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tiso Photo — Portrait · Events · Products · Prague</title>
-    <meta name="description" content="Profesionální fotografie v Praze — portréty, události a produktová fotografie." />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Tiso Photo" />
-    <meta property="og:image" content="/phats/photos_webp_small/portrait/photo_01.webp" />
-    <link rel="preload" as="image" href="/phats/photos_webp/portrait/photo_01.webp" />
+    <title>Tiso Photo — Products</title>
+    <meta name="description" content="Profesionální produktová fotografie v Praze." />
+    <link rel="preload" as="image" href="/phats/photos_webp/products/photo_01.webp" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
@@ -19,7 +16,7 @@
         <div class="nav-links">
           <a href="/phats/portrait/" data-i18n="nav_portrait"></a>
           <a href="/phats/events/"   data-i18n="nav_events"></a>
-          <a href="/phats/products/" data-i18n="nav_products"></a>
+          <a href="/phats/products/" class="active" data-i18n="nav_products"></a>
           <a href="#contact"         data-i18n="nav_contact"></a>
           <button id="lang-toggle" class="lang-toggle" aria-label="Switch language">EN</button>
         </div>
@@ -31,45 +28,20 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <p class="hero-eyebrow" data-i18n="hero_eyebrow"></p>
-        <h1 data-i18n="hero_title"></h1>
-        <p class="hero-sub" data-i18n="hero_subtitle"></p>
+        <h1 data-i18n="products_title"></h1>
+        <p class="hero-sub" data-i18n="products_subtitle"></p>
+        <a href="#gallery" class="btn-primary" data-i18n="hero_cta"></a>
       </div>
-      <a href="#categories" class="hero-scroll" aria-label="Scroll down">
+      <a href="#gallery" class="hero-scroll" aria-label="Scroll down">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </a>
     </section>
 
-    <section id="categories" aria-label="Categories">
+    <section id="gallery" aria-label="Products gallery">
       <div class="container">
-        <div class="cat-grid">
-
-          <a href="/phats/portrait/" class="cat-card" aria-label="Portrait gallery">
-            <div class="cat-img" id="cat-portrait"></div>
-            <div class="cat-overlay">
-              <h2 class="cat-title" data-i18n="nav_portrait"></h2>
-              <span class="cat-btn" data-i18n="cat_view"></span>
-            </div>
-          </a>
-
-          <a href="/phats/events/" class="cat-card" aria-label="Events gallery">
-            <div class="cat-img" id="cat-events"></div>
-            <div class="cat-overlay">
-              <h2 class="cat-title" data-i18n="nav_events"></h2>
-              <span class="cat-btn" data-i18n="cat_view"></span>
-            </div>
-          </a>
-
-          <a href="/phats/products/" class="cat-card" aria-label="Products gallery">
-            <div class="cat-img" id="cat-products"></div>
-            <div class="cat-overlay">
-              <h2 class="cat-title" data-i18n="nav_products"></h2>
-              <span class="cat-btn" data-i18n="cat_view"></span>
-            </div>
-          </a>
-
-        </div>
+        <ul class="gallery-grid" id="gallery-main" role="list"></ul>
       </div>
     </section>
 
@@ -116,6 +88,28 @@
       </div>
     </footer>
 
-    <script type="module" src="/src/main.js"></script>
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+      <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous photo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next photo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+      <figure class="lightbox-figure">
+        <img id="lightbox-img" src="" alt="" />
+      </figure>
+    </div>
+
+    <script type="module" src="/src/products.js"></script>
   </body>
 </html>
