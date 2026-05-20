@@ -131,8 +131,9 @@ ul, ol, li { list-style: none; }
   height: 100svh;
   min-height: 560px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  padding-bottom: clamp(40px, 10vh, 120px);
   overflow: hidden;
 }
 
