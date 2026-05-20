@@ -362,6 +362,133 @@ section { padding: clamp(64px, 10vw, 120px) 0; }
 }
 .photo-btn:hover img { transform: scale(1.04); }
 
+/* ── Projects grid ─────────────────────────────────────────── */
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 8vw, 96px);
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.project-card-inner {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-card-img {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.project-card-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.project-card-inner:hover .project-card-img img { transform: scale(1.03); }
+
+.project-card-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.project-card-desc {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.project-card-btn {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  transition: color var(--transition), border-color var(--transition);
+}
+.project-card-inner:hover .project-card-btn {
+  color: var(--accent-dk);
+  border-color: var(--accent-dk);
+}
+
+/* ── Project detail page ───────────────────────────────────── */
+.project-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .project-detail { grid-template-columns: 1fr; }
+}
+
+.project-detail-img { border-radius: var(--radius); overflow: hidden; }
+
+.project-back {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  transition: color var(--transition);
+}
+.project-back:hover { color: var(--accent); }
+
+.project-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.project-desc {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* ── Portrait showcase (single column) ────────────────────── */
+.portrait-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 8vw, 96px);
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.portrait-item {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.portrait-item .photo-btn {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.portrait-caption {
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.5;
+}
+
 /* ── Contact ───────────────────────────────────────────────── */
 #contact { background: var(--bg-3); }
 

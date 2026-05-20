@@ -18,7 +18,9 @@ export default defineConfig({
         main:        resolve(__dirname, 'index.html'),
         portrait:    resolve(__dirname, 'portrait/index.html'),
         events:      resolve(__dirname, 'events/index.html'),
-        products:    resolve(__dirname, 'products/index.html'),
+        projects:    resolve(__dirname, 'projects/index.html'),
+        lumiere:     resolve(__dirname, 'projects/lumiere/index.html'),
+        terroir:     resolve(__dirname, 'projects/terroir/index.html'),
         photopicker: resolve(__dirname, 'photo-picker.html'),
       }
     }

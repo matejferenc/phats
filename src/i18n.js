@@ -2,7 +2,7 @@ export const translations = {
   cs: {
     nav_portrait:  'Portréty',
     nav_events:    'Události',
-    nav_products:  'Produkty',
+    nav_projects:  'Projekty',
     nav_contact:   'Kontakt',
 
     hero_eyebrow:  'Profesionální fotografie · Praha',
@@ -10,13 +10,14 @@ export const translations = {
     hero_subtitle: 'Portréty, události a produktová fotografie na nejvyšší úrovni.',
     hero_cta:      'Prohlédnout portfolio',
     cat_view:      'Zobrazit galerii',
+    cat_view_projects: 'Zobrazit projekty',
 
     portrait_title:    'Portréty',
     portrait_subtitle: 'Každý člověk má svůj příběh. Nechte nás ho zachytit.',
     events_title:      'Události',
     events_subtitle:   'Od rodinných slavností po firemní akce.',
-    products_title:    'Produkty',
-    products_subtitle: 'Profesionální produktová fotografie, která prodává.',
+    projects_title:    'Projekty',
+    projects_subtitle: 'Vybrané fotografické projekty — od konceptu po finální obraz.',
 
     contact_title:    'Rezervujte si focení',
     contact_subtitle: 'Kontaktujte nás a domluvíme termín.',
@@ -28,7 +29,7 @@ export const translations = {
   en: {
     nav_portrait:  'Portrait',
     nav_events:    'Events',
-    nav_products:  'Products',
+    nav_projects:  'Projects',
     nav_contact:   'Contact',
 
     hero_eyebrow:  'Professional Photography · Prague',
@@ -36,13 +37,14 @@ export const translations = {
     hero_subtitle: 'Portrait, event and product photography at the highest level.',
     hero_cta:      'View portfolio',
     cat_view:      'View gallery',
+    cat_view_projects: 'View projects',
 
     portrait_title:    'Portrait',
     portrait_subtitle: 'Every person has a story. Let us capture it.',
     events_title:      'Events',
     events_subtitle:   'From family celebrations to corporate events — every moment deserves to be remembered.',
-    products_title:    'Products',
-    products_subtitle: 'Professional product photography that sells.',
+    projects_title:    'Projects',
+    projects_subtitle: 'Selected photography projects — from concept to final image.',
 
     contact_title:    'Book a session',
     contact_subtitle: 'Contact us and we\'ll arrange a time.',

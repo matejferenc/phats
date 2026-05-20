@@ -18,7 +18,7 @@ document.getElementById('cat-portrait').style.backgroundImage =
 document.getElementById('cat-events').style.backgroundImage =
   `url('${base}photos_webp/events/photo_01.webp')`
 document.getElementById('cat-products').style.backgroundImage =
-  `url('${base}photos_webp/products/photo_51.webp')`
+  `url('${base}photos_webp/products/photo_49.webp')`
 
 initI18n()
 initHeader()

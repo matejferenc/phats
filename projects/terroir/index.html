@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tiso Photo — Portrait</title>
-    <meta name="description" content="Profesionální portrétní fotografie v Praze." />
-    <link rel="preload" as="image" href="/photos/photos_webp/portrait/photo_01.webp" />
+    <title>Tiso Photo — Terroir</title>
+    <meta name="description" content="Projekt Terroir — fotografie zachytávající atmosféru jídla a prostředí." />
+    <link rel="preload" as="image" href="/photos/photos_webp/products/photo_25.webp" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
@@ -14,10 +14,10 @@
       <nav class="nav">
         <a href="/photos/" class="logo" aria-label="Tiso Photo">Tiso<span>Photo</span></a>
         <div class="nav-links">
-          <a href="/photos/portrait/" class="active" data-i18n="nav_portrait"></a>
+          <a href="/photos/portrait/" data-i18n="nav_portrait"></a>
           <a href="/photos/events/"   data-i18n="nav_events"></a>
-          <a href="/photos/projects/" data-i18n="nav_projects"></a>
-          <a href="#contact"         data-i18n="nav_contact"></a>
+          <a href="/photos/projects/" class="active" data-i18n="nav_projects"></a>
+          <a href="#contact"          data-i18n="nav_contact"></a>
           <button id="lang-toggle" class="lang-toggle" aria-label="Switch language">EN</button>
         </div>
       </nav>
@@ -28,20 +28,31 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <p class="hero-eyebrow" data-i18n="hero_eyebrow"></p>
-        <h1 data-i18n="portrait_title"></h1>
-        <p class="hero-sub" data-i18n="portrait_subtitle"></p>
-        <a href="#gallery" class="btn-primary" data-i18n="hero_cta"></a>
+        <h1>Terroir</h1>
+        <p class="hero-sub" id="hero-sub"></p>
+        <a href="#project" class="btn-primary" data-i18n="hero_cta"></a>
       </div>
-      <a href="#gallery" class="hero-scroll" aria-label="Scroll down">
+      <a href="#project" class="hero-scroll" aria-label="Scroll down">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </a>
     </section>
 
-    <section id="gallery" aria-label="Portrait gallery">
+    <section id="project" aria-label="Terroir project">
       <div class="container">
-        <ul class="gallery-grid" id="gallery-main" role="list"></ul>
+        <div class="project-detail">
+          <div class="project-detail-img">
+            <button class="photo-btn" id="project-photo-btn" aria-label="View photo">
+              <img id="project-img" src="" alt="Terroir — Tiso Photo" loading="eager" decoding="async" />
+            </button>
+          </div>
+          <div class="project-detail-text">
+            <a href="/photos/projects/" class="project-back" id="back-link">← Projekty</a>
+            <h2 class="project-name">Terroir</h2>
+            <p class="project-desc" id="project-desc"></p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -110,6 +121,6 @@
       </figure>
     </div>
 
-    <script type="module" src="/src/portrait.js"></script>
+    <script type="module" src="/src/terroir.js"></script>
   </body>
 </html>
